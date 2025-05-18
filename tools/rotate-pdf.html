@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FREE PDF Rotator 2024 - PDFRocket.site</title>
+    <meta name="description" content="Rotate PDF pages online for free. Fix page orientation easily with this fast, easy-to-use PDF rotator by Aqib Chaudhary.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <script async src="https://pagead2.googlesyndication.com/adsbygoogle.js?client=ca-pub-your-id" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Tool Header -->
+    <header class="bg-dark text-white py-3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="mb-0">Rotate PDF Pages</h1>
+                    <p class="mb-0">Fix page orientation or rotate PDF pages as needed</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="../index.html" class="btn btn-outline-light">Back to Tools</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mt-4">
+        <!-- Ad Space -->
+        <div class="ad-container text-center mb-4">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-your-id"
+                 data-ad-slot="tool-header-ad"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+
+        <!-- Tool Interface -->
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <div class="upload-area p-5 border rounded" id="dropZone">
+                                <i class="fas fa-file-pdf fa-3x mb-3"></i>
+                                <h3>Drop PDF file here</h3>
+                                <p>or</p>
+                                <input type="file" id="fileInput" accept=".pdf,application/pdf" class="d-none">
+                                <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                                    Choose File
+                                </button>
+                                <p class="mt-2 text-muted">Maximum file size: 10MB</p>
+                            </div>
+                        </div>
+
+                        <div id="pdfPreview" class="mb-4 d-none">
+                            <h4>PDF Preview:</h4>
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle"></i> Click the rotation buttons to adjust page orientation
+                            </div>
+
+                            <!-- Rotation Options -->
+                            <div class="mb-3">
+                                <h5>Bulk Actions:</h5>
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-outline-primary" id="rotateAllLeft">
+                                        <i class="fas fa-undo"></i> Rotate All Left
+                                    </button>
+                                    <button class="btn btn-outline-primary" id="rotateAllRight">
+                                        <i class="fas fa-redo"></i> Rotate All Right
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Page Preview -->
+                            <div class="row" id="pagePreviewContainer">
+                                <!-- Page thumbnails will be added here -->
+                            </div>
+
+                            <div class="mt-3">
+                                <button class="btn btn-success" id="saveBtn">Save PDF</button>
+                                <button class="btn btn-secondary" id="clearBtn">Clear</button>
+                            </div>
+                        </div>
+
+                        <div id="progressArea" class="d-none">
+                            <div class="progress mb-3">
+                                <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <p class="text-center" id="progressText">Processing PDF...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h4>How to Rotate PDF Pages:</h4>
+                        <ol>
+                            <li>Upload your PDF file by dropping it or clicking "Choose File"</li>
+                            <li>Use the rotation buttons on each page to:
+                                <ul>
+                                    <li><i class="fas fa-undo"></i> Rotate left (90° counterclockwise)</li>
+                                    <li><i class="fas fa-redo"></i> Rotate right (90° clockwise)</li>
+                                </ul>
+                            </li>
+                            <li>Use bulk actions to rotate all pages at once</li>
+                            <li>Click "Save PDF" to download your rotated document</li>
+                        </ol>
+                        <div class="alert alert-info">
+                            <strong>Note:</strong> All processing is done in your browser. Your files are never uploaded to any server.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Ad Space -->
+            <div class="col-md-4 d-none d-md-block">
+                <div class="ad-container">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-your-id"
+                         data-ad-slot="tool-sidebar-ad"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>© 2024 PDFRocket.site - All rights reserved</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <p>Created by Aqib Chaudhary</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="rotate-pdf.js"></script>
+</body>
+</html> 

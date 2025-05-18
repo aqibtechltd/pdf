@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML to PDF Converter - PDFRocket.site</title>
+    <meta name="description" content="Convert HTML files and web pages to PDF online for free. Fast and secure client-side processing.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/adsbygoogle.js?client=ca-pub-your-id" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-dark text-white py-3 header-animate">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="../index.html">
+                        <i class="fas fa-rocket me-2"></i>PDFRocket.site
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../pages/about.html">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../pages/contact.html">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4">HTML to PDF Converter</h1>
+                        <p class="text-center mb-4">Convert HTML files and web pages to PDF format. Fast, free, and secure!</p>
+
+                        <!-- Input Type Selection -->
+                        <div class="mb-4">
+                            <div class="btn-group w-100" role="group">
+                                <input type="radio" class="btn-check" name="inputType" id="fileInput" checked>
+                                <label class="btn btn-outline-primary" for="fileInput">
+                                    <i class="fas fa-file-code me-2"></i>HTML File
+                                </label>
+                                <input type="radio" class="btn-check" name="inputType" id="urlInput">
+                                <label class="btn btn-outline-primary" for="urlInput">
+                                    <i class="fas fa-globe me-2"></i>Web URL
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- File Upload Area -->
+                        <div id="fileUploadArea">
+                            <div class="upload-area text-center p-5 mb-4" id="dropZone">
+                                <i class="fas fa-code fa-3x mb-3 html-to-pdf-icon text-primary"></i>
+                                <h3>Drag & Drop HTML File Here</h3>
+                                <p>or</p>
+                                <label class="btn btn-primary btn-convert">
+                                    <i class="fas fa-file-upload me-2"></i>Choose File
+                                    <input type="file" id="fileInput" accept=".html,.htm" class="d-none">
+                                </label>
+                                <p class="mt-2 text-muted">Maximum file size: 10MB</p>
+                            </div>
+                        </div>
+
+                        <!-- URL Input Area -->
+                        <div id="urlInputArea" class="d-none">
+                            <div class="mb-4">
+                                <label for="url" class="form-label">Enter Website URL</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-globe"></i>
+                                    </span>
+                                    <input type="url" class="form-control" id="urlInput" placeholder="https://example.com">
+                                    <button class="btn btn-primary btn-convert" id="loadUrlBtn">
+                                        <i class="fas fa-download me-2"></i>Load
+                                    </button>
+                                </div>
+                                <small class="text-muted">Enter the full URL including https:// or http://</small>
+                            </div>
+                        </div>
+
+                        <!-- Options -->
+                        <div id="optionsArea" class="mb-4 d-none">
+                            <h4 class="mb-3">
+                                <i class="fas fa-cog fa-spin me-2"></i>Conversion Options
+                            </h4>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="pageSize" class="form-label">
+                                            <i class="fas fa-expand-arrows-alt me-2"></i>Page Size
+                                        </label>
+                                        <select class="form-select" id="pageSize">
+                                            <option value="A4">A4 (210 × 297 mm)</option>
+                                            <option value="letter">Letter (216 × 279 mm)</option>
+                                            <option value="legal">Legal (216 × 356 mm)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="orientation" class="form-label">
+                                            <i class="fas fa-sync me-2"></i>Orientation
+                                        </label>
+                                        <select class="form-select" id="orientation">
+                                            <option value="portrait">Portrait</option>
+                                            <option value="landscape">Landscape</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="margin" class="form-label">
+                                            <i class="fas fa-border-all me-2"></i>Margin Size
+                                        </label>
+                                        <select class="form-select" id="margin">
+                                            <option value="10">Normal (10mm)</option>
+                                            <option value="15">Large (15mm)</option>
+                                            <option value="5">Small (5mm)</option>
+                                            <option value="0">None</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Preview Area -->
+                        <div id="previewArea" class="mb-4 d-none">
+                            <h4 class="mb-3">Preview</h4>
+                            <div id="preview" class="border rounded p-3">
+                                <!-- Content will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Progress Bar (Hidden by default) -->
+                        <div class="progress mb-3 d-none" id="progressArea">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"></div>
+                            <div class="position-absolute w-100 text-center" style="line-height: 1.5rem;">
+                                <small id="progressText" class="text-dark"></small>
+                            </div>
+                        </div>
+
+                        <!-- Convert Button (Hidden by default) -->
+                        <div class="d-grid gap-2 mb-4">
+                            <button id="convertFileBtn" class="btn btn-success btn-lg btn-convert">
+                                <i class="fas fa-file-code me-2"></i>Convert HTML File to PDF
+                            </button>
+                            <button id="convertUrlBtn" class="btn btn-primary btn-lg btn-convert">
+                                <i class="fas fa-globe me-2"></i>Convert Web Page to PDF
+                            </button>
+                        </div>
+
+                        <!-- Result Area (Hidden by default) -->
+                        <div id="resultArea" class="d-none">
+                            <div class="alert alert-success text-center">
+                                <i class="fas fa-check-circle me-2"></i>Conversion Complete!
+                            </div>
+                            <button id="downloadBtn" class="btn btn-primary w-100">
+                                <i class="fas fa-download me-2"></i>Download PDF
+                            </button>
+                        </div>
+
+                        <!-- Error Area (Hidden by default) -->
+                        <div id="errorArea" class="alert alert-danger d-none">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            <span id="errorMessage"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <div class="row mt-5">
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-shield-alt fa-3x mb-3 text-primary feature-icon"></i>
+                            <h4>100% Secure</h4>
+                            <p>All processing done in your browser</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-file-pdf fa-3x mb-3 text-primary feature-icon"></i>
+                            <h4>High Quality</h4>
+                            <p>Preserve layout & styling</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-cogs fa-3x mb-3 text-primary feature-icon"></i>
+                            <h4>Customizable</h4>
+                            <p>Multiple output options</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5 footer-animate">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">© 2024 PDFRocket.site - All rights reserved</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <p class="mb-0">Created by Aqib Chaudhary</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/html-to-pdf.js"></script>
+</body>
+</html> 

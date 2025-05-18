@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FREE PDF Cropper 2024 - PDFRocket.site</title>
+    <meta name="description" content="Crop PDF pages online for free. Adjust margins and page dimensions with this fast, easy-to-use PDF cropper by Aqib Chaudhary.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .crop-preview {
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+        }
+        .crop-area {
+            position: absolute;
+            border: 2px solid #0d6efd;
+            background: rgba(13, 110, 253, 0.1);
+            cursor: move;
+        }
+        .crop-handle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #0d6efd;
+            border: 1px solid #fff;
+        }
+        .crop-handle.nw { top: -5px; left: -5px; cursor: nw-resize; }
+        .crop-handle.ne { top: -5px; right: -5px; cursor: ne-resize; }
+        .crop-handle.sw { bottom: -5px; left: -5px; cursor: sw-resize; }
+        .crop-handle.se { bottom: -5px; right: -5px; cursor: se-resize; }
+        .crop-handle.n { top: -5px; left: 50%; margin-left: -5px; cursor: n-resize; }
+        .crop-handle.s { bottom: -5px; left: 50%; margin-left: -5px; cursor: s-resize; }
+        .crop-handle.e { right: -5px; top: 50%; margin-top: -5px; cursor: e-resize; }
+        .crop-handle.w { left: -5px; top: 50%; margin-top: -5px; cursor: w-resize; }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/adsbygoogle.js?client=ca-pub-your-id" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Tool Header -->
+    <header class="bg-dark text-white py-3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="mb-0">Crop PDF Pages</h1>
+                    <p class="mb-0">Adjust margins and page dimensions</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="../index.html" class="btn btn-outline-light">Back to Tools</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mt-4">
+        <!-- Ad Space -->
+        <div class="ad-container text-center mb-4">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-your-id"
+                 data-ad-slot="tool-header-ad"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+
+        <!-- Tool Interface -->
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <div class="upload-area p-5 border rounded" id="dropZone">
+                                <i class="fas fa-file-pdf fa-3x mb-3"></i>
+                                <h3>Drop PDF file here</h3>
+                                <p>or</p>
+                                <input type="file" id="fileInput" accept=".pdf,application/pdf" class="d-none">
+                                <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                                    Choose File
+                                </button>
+                                <p class="mt-2 text-muted">Maximum file size: 10MB</p>
+                            </div>
+                        </div>
+
+                        <div id="pdfPreview" class="mb-4 d-none">
+                            <h4>PDF Preview:</h4>
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle"></i> Drag the handles to adjust the crop area
+                            </div>
+
+                            <!-- Crop Options -->
+                            <div class="mb-3">
+                                <h5>Crop Settings:</h5>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Apply to:</label>
+                                        <select class="form-select" id="cropScope">
+                                            <option value="current">Current Page Only</option>
+                                            <option value="all">All Pages</option>
+                                            <option value="range">Page Range</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6" id="pageRangeInput" style="display: none;">
+                                        <label class="form-label">Page Range:</label>
+                                        <input type="text" class="form-control" id="pageRange" placeholder="e.g., 1-3, 5, 7-9">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Manual Crop Input -->
+                            <div class="mb-3">
+                                <div class="row g-3">
+                                    <div class="col-6 col-md-3">
+                                        <label class="form-label">Top (mm)</label>
+                                        <input type="number" class="form-control" id="cropTop" min="0" value="0">
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <label class="form-label">Right (mm)</label>
+                                        <input type="number" class="form-control" id="cropRight" min="0" value="0">
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <label class="form-label">Bottom (mm)</label>
+                                        <input type="number" class="form-control" id="cropBottom" min="0" value="0">
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <label class="form-label">Left (mm)</label>
+                                        <input type="number" class="form-control" id="cropLeft" min="0" value="0">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Preview Area -->
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <span class="me-2">Page:</span>
+                                        <button class="btn btn-sm btn-outline-primary" id="prevPage">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </button>
+                                        <span class="mx-2" id="pageInfo">1 / 1</span>
+                                        <button class="btn btn-sm btn-outline-primary" id="nextPage">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-sm btn-outline-secondary" id="resetCrop">
+                                            Reset Crop
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="crop-preview" id="previewContainer">
+                                    <canvas id="pageCanvas"></canvas>
+                                    <div class="crop-area">
+                                        <div class="crop-handle nw"></div>
+                                        <div class="crop-handle n"></div>
+                                        <div class="crop-handle ne"></div>
+                                        <div class="crop-handle w"></div>
+                                        <div class="crop-handle e"></div>
+                                        <div class="crop-handle sw"></div>
+                                        <div class="crop-handle s"></div>
+                                        <div class="crop-handle se"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3">
+                                <button class="btn btn-success" id="cropBtn">Crop PDF</button>
+                                <button class="btn btn-secondary" id="clearBtn">Clear</button>
+                            </div>
+                        </div>
+
+                        <div id="progressArea" class="d-none">
+                            <div class="progress mb-3">
+                                <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <p class="text-center" id="progressText">Processing PDF...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h4>How to Crop PDF Pages:</h4>
+                        <ol>
+                            <li>Upload your PDF file</li>
+                            <li>Adjust the crop area using:
+                                <ul>
+                                    <li>Drag handles to resize visually</li>
+                                    <li>Enter precise measurements in millimeters</li>
+                                </ul>
+                            </li>
+                            <li>Choose to apply crop to:
+                                <ul>
+                                    <li>Current page only</li>
+                                    <li>All pages</li>
+                                    <li>Specific page range</li>
+                                </ul>
+                            </li>
+                            <li>Click "Crop PDF" to process your file</li>
+                            <li>Download your cropped PDF</li>
+                        </ol>
+                        <div class="alert alert-info">
+                            <strong>Note:</strong> All processing is done in your browser. Your files are never uploaded to any server.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Ad Space -->
+            <div class="col-md-4 d-none d-md-block">
+                <div class="ad-container">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-your-id"
+                         data-ad-slot="tool-sidebar-ad"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>© 2024 PDFRocket.site - All rights reserved</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <p>Created by Aqib Chaudhary</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="crop-pdf.js"></script>
+</body>
+</html> 

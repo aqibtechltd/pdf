@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPT to PDF Converter - PDFRocket.site</title>
+    <meta name="description" content="Convert PowerPoint presentations (PPT/PPTX) to PDF online for free. Fast and secure client-side processing.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pptxjs@1.21.1/css/pptxjs.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.13.2/jquery-ui.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.13.2/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pptxjs@1.21.1/dist/pptxjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/adsbygoogle.js?client=ca-pub-your-id" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-dark text-white py-3 header-animate">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="../index.html">
+                        <i class="fas fa-rocket me-2"></i>PDFRocket.site
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../pages/about.html">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../pages/contact.html">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4">PPT to PDF Converter</h1>
+                        <p class="text-center mb-4">Convert PowerPoint presentations to PDF format. Fast, free, and secure!</p>
+
+                        <!-- File Upload Area -->
+                        <div class="upload-area text-center p-5 mb-4" id="dropZone">
+                            <i class="fas fa-presentation fa-3x mb-3 ppt-to-pdf-icon text-primary"></i>
+                            <h3>Drag & Drop PowerPoint File Here</h3>
+                            <p>or</p>
+                            <label class="btn btn-primary btn-convert">
+                                <i class="fas fa-file-upload me-2"></i>Choose File
+                                <input type="file" id="fileInput" accept=".ppt,.pptx" class="d-none">
+                            </label>
+                            <p class="mt-2 text-muted">Maximum file size: 10MB</p>
+                        </div>
+
+                        <!-- Options Area -->
+                        <div id="optionsArea" class="mb-4">
+                            <h4 class="mb-3">
+                                <i class="fas fa-cog fa-spin me-2"></i>Conversion Options
+                            </h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="pageSize" class="form-label">
+                                            <i class="fas fa-expand-arrows-alt me-2"></i>Page Size
+                                        </label>
+                                        <select class="form-select" id="pageSize">
+                                            <option value="16:9">16:9 (Widescreen)</option>
+                                            <option value="4:3">4:3 (Standard)</option>
+                                            <option value="A4">A4 (210 × 297 mm)</option>
+                                            <option value="letter">Letter (216 × 279 mm)</option>
+                                            <option value="legal">Legal (216 × 356 mm)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="orientation" class="form-label">
+                                            <i class="fas fa-sync me-2"></i>Orientation
+                                        </label>
+                                        <select class="form-select" id="orientation">
+                                            <option value="landscape">Landscape</option>
+                                            <option value="portrait">Portrait</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="slideQuality" class="form-label">
+                                            <i class="fas fa-image me-2"></i>Output Quality
+                                        </label>
+                                        <select class="form-select" id="slideQuality">
+                                            <option value="high">High (Best Quality)</option>
+                                            <option value="medium" selected>Medium (Recommended)</option>
+                                            <option value="low">Low (Smaller File)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="preserveAnimations">
+                                            <label class="form-check-label" for="preserveAnimations">
+                                                <i class="fas fa-film me-2"></i>Preserve Animations (Beta)
+                                            </label>
+                                        </div>
+                                        <small class="text-muted d-block mt-1">
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            Attempts to preserve basic slide animations
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Progress Area -->
+                        <div class="progress mb-3 d-none" id="progressArea">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"></div>
+                            <div class="position-absolute w-100 text-center" style="line-height: 1.5rem;">
+                                <small id="progressText" class="text-dark"></small>
+                            </div>
+                        </div>
+
+                        <!-- Convert Button -->
+                        <button id="convertBtn" class="btn btn-success btn-lg w-100 mb-4 btn-convert">
+                            <i class="fas fa-file-pdf me-2"></i>Convert to PDF
+                        </button>
+
+                        <!-- Preview Area -->
+                        <div id="previewArea" class="mb-4 d-none">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="mb-0">
+                                    <i class="fas fa-eye me-2"></i>Preview
+                                </h4>
+                                <div class="btn-group">
+                                    <button class="btn btn-outline-primary btn-sm" id="prevSlide">
+                                        <i class="fas fa-chevron-left"></i> Previous
+                                    </button>
+                                    <button class="btn btn-outline-primary btn-sm" id="nextSlide">
+                                        Next <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row" id="slidePreview">
+                                <!-- Slides will be inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Result Area (Hidden by default) -->
+                        <div id="resultArea" class="d-none">
+                            <div class="alert alert-success text-center">
+                                <i class="fas fa-check-circle me-2"></i>Conversion Complete!
+                            </div>
+                            <button id="downloadBtn" class="btn btn-primary w-100">
+                                <i class="fas fa-download me-2"></i>Download PDF
+                            </button>
+                        </div>
+
+                        <!-- Error Area (Hidden by default) -->
+                        <div id="errorArea" class="alert alert-danger d-none">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            <span id="errorMessage"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <div class="row mt-5">
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-shield-alt fa-3x mb-3 text-primary feature-icon"></i>
+                            <h4>100% Secure</h4>
+                            <p>All processing done in your browser</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-file-pdf fa-3x mb-3 text-primary feature-icon"></i>
+                            <h4>High Quality</h4>
+                            <p>Preserve formatting & layout</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-cogs fa-3x mb-3 text-primary feature-icon"></i>
+                            <h4>Customizable</h4>
+                            <p>Choose size & orientation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5 footer-animate">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">© 2024 PDFRocket.site - All rights reserved</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <p class="mb-0">Created by Aqib Chaudhary</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/ppt-to-pdf.js"></script>
+</body>
+</html> 

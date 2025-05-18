@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Allow: /tools/
+Allow: /css/
+Allow: /js/
+
+Sitemap: https://pdfrocket.site/sitemap.xml
+
+# Optimize crawling
+Crawl-delay: 1 

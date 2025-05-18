@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to Word Converter - PDFRocket.site</title>
+    <meta name="description" content="Convert PDF files to editable Word documents online for free. Fast and secure client-side processing.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://unpkg.com/docx@8.2.3/build/index.min.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/adsbygoogle.js?client=ca-pub-your-id" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-dark text-white py-3 header-animate">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="../index.html">
+                        <i class="fas fa-rocket me-2"></i>PDFRocket.site
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../pages/about.html">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../pages/contact.html">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4">PDF to Word Converter</h1>
+                        <p class="text-center mb-4">Convert your PDF files to editable Word documents. Fast, free, and secure!</p>
+
+                        <!-- File Upload Area -->
+                        <div class="upload-area text-center p-5 mb-4" id="dropZone">
+                            <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i>
+                            <h3>Drag & Drop PDF File Here</h3>
+                            <p>or</p>
+                            <label class="btn btn-primary">
+                                Choose File
+                                <input type="file" id="fileInput" accept=".pdf" class="d-none">
+                            </label>
+                            <p class="mt-2 text-muted">Maximum file size: 10MB</p>
+                        </div>
+
+                        <!-- Progress Bar (Hidden by default) -->
+                        <div class="progress mb-3 d-none" id="progressBar">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                        </div>
+
+                        <!-- Convert Button (Hidden by default) -->
+                        <button id="convertBtn" class="btn btn-success w-100 mb-3 d-none">
+                            <i class="fas fa-cog me-2"></i>Convert to Word
+                        </button>
+
+                        <!-- Result Area (Hidden by default) -->
+                        <div id="resultArea" class="d-none">
+                            <div class="alert alert-success text-center">
+                                <i class="fas fa-check-circle me-2"></i>Conversion Complete!
+                            </div>
+                            <button id="downloadBtn" class="btn btn-primary w-100">
+                                <i class="fas fa-download me-2"></i>Download Word Document
+                            </button>
+                        </div>
+
+                        <!-- Error Area (Hidden by default) -->
+                        <div id="errorArea" class="alert alert-danger d-none">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            <span id="errorMessage"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <div class="row mt-5">
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-shield-alt fa-3x mb-3 text-primary"></i>
+                            <h4>100% Secure</h4>
+                            <p>All processing done in your browser</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-bolt fa-3x mb-3 text-primary"></i>
+                            <h4>Fast Processing</h4>
+                            <p>Convert files in seconds</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-check-circle fa-3x mb-3 text-primary"></i>
+                            <h4>High Quality</h4>
+                            <p>Maintain formatting & layout</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5 footer-animate">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">© 2024 PDFRocket.site - All rights reserved</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <p class="mb-0">Created by Aqib Chaudhary</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/pdf-to-word.js"></script>
+</body>
+</html> 
